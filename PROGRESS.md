@@ -5,7 +5,7 @@
 **Tech Stack:** FastAPI + SQLModel + PostgreSQL (Neon) + React Native + FastHTML + Modal
 **Repo:** sbooks
 **Started:** 2026-03-22
-**Last Updated:** 2026-03-22 (Session 1 continued)
+**Last Updated:** 2026-03-23 (Session 2)
 
 ---
 
@@ -50,6 +50,7 @@
 - [x] `SESSION_PRACTICES.md` — industry standard tracking/cleanup reference
 - [x] `se_ffstyle.ipynb` — project tracking overview notebook
 - [x] `CLAUDE.md` — project context file for Claude
+- [x] GitHub Issues + Milestone setup for Sprint 1 (7 issues, 5 labels, 1 milestone)
 - [ ] `.gitignore` — needs `venv/`, `__pycache__/`, `.env` entries
 - [ ] `requirements.txt` — empty, needs dependencies listed
 - [ ] `app/database.py` — empty, needs async PostgreSQL connection (Neon)
@@ -129,6 +130,26 @@
 3. Wire up `main.py` (FastAPI app init)
 4. Start Sprint 1: SQLModel classes for People & Access tables
 5. Auth endpoints (JWT + RBAC)
+
+### Session 2 — 2026-03-23
+**Focus:** Sprint tracking setup + workflow practices
+**Duration:** ~30 min
+**What was done:**
+- Set up GitHub Issues workflow for Sprint 1:
+  - Created milestone: `Sprint 1 — People & Access`
+  - Created 5 labels: `chore`, `core`, `auth`, `models`, `sprint-1`
+  - Created 7 issues (#1–#7) covering all Sprint 1 tasks
+- Learned `gh` CLI commands for milestones, labels, and issue creation
+- Updated `CLAUDE.md` with "Working Style" — ask before implementing preference
+- Updated `se_ffstyle.ipynb` with GitHub Issues setup details
+
+**Blockers:** None
+**Next session priorities:**
+1. Issue #1: populate `.gitignore`
+2. Issue #2: populate `requirements.txt`
+3. Issue #3: async database connection (Neon)
+4. Issue #4: FastAPI app init + config
+5. Continue into auth model issues (#5–#7) if time permits
 
 ---
 

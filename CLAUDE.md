@@ -51,6 +51,9 @@ Full data model specification is in: `../problem_statement_data_model_redesign_c
 - **Business Manager** — operations oversight, reporting
 - **Owner** — full access, financials, targets
 
+## Working Style
+- **Ask before implementing** — don't jump to writing code or running commands. Present the approach first and let the user decide whether to execute it themselves or have Claude do it. Sometimes the user wants to learn, not just get output.
+
 ## Coding Preferences
 - Use async/await throughout (async database sessions, async endpoints)
 - SQLModel for all ORM models (not raw SQLAlchemy)
