@@ -5,7 +5,7 @@
 **Tech Stack:** FastAPI + SQLModel + PostgreSQL (Neon) + React Native + FastHTML + Modal
 **Repo:** sbooks
 **Started:** 2026-03-22
-**Last Updated:** 2026-03-23 (Session 2)
+**Last Updated:** 2026-03-24 (Session 3)
 
 ---
 
@@ -50,7 +50,9 @@
 - [x] `SESSION_PRACTICES.md` — industry standard tracking/cleanup reference
 - [x] `se_ffstyle.ipynb` — project tracking overview notebook
 - [x] `CLAUDE.md` — project context file for Claude
-- [x] GitHub Issues + Milestone setup for Sprint 1 (7 issues, 5 labels, 1 milestone)
+- [x] GitHub Issues + Milestone setup for Sprint 1 (7 issues, 5 labels, 1 milestone) — TO BE REDONE MANUALLY (auto-created in Session 2, deleting in Session 3)
+- [ ] Delete auto-created GitHub Issues, milestone, labels from Session 2
+- [ ] Manually recreate GitHub Issues for Sprint 1
 - [ ] `.gitignore` — needs `venv/`, `__pycache__/`, `.env` entries
 - [ ] `requirements.txt` — empty, needs dependencies listed
 - [ ] `app/database.py` — empty, needs async PostgreSQL connection (Neon)
@@ -150,6 +152,21 @@
 3. Issue #3: async database connection (Neon)
 4. Issue #4: FastAPI app init + config
 5. Continue into auth model issues (#5–#7) if time permits
+
+### Session 3 — 2026-03-24
+**Focus:** Cleanup — redo GitHub Issues setup (user-driven this time)
+**Duration:** ~15 min
+**What was done:**
+- Reviewed progress from Session 2
+- Decided to delete auto-created GitHub Issues from Session 2 (Claude ran them without permission)
+- Learned `gh issue delete`, `gh api DELETE milestones`, `gh label delete` commands
+- User will recreate issues manually to learn the workflow
+
+**Blockers:** None
+**Next session priorities:**
+1. Delete existing GitHub Issues (#1–#7), milestone, and labels
+2. Manually recreate GitHub Issues for Sprint 1 using `gh` CLI
+3. Then continue with actual code: `.gitignore`, `requirements.txt`, `database.py`, `main.py`
 
 ---
 
