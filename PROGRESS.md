@@ -5,7 +5,7 @@
 **Tech Stack:** FastAPI + SQLModel + PostgreSQL (Neon) + React Native + FastHTML + Modal
 **Repo:** sbooks
 **Started:** 2026-03-22
-**Last Updated:** 2026-03-24 (Session 3)
+**Last Updated:** 2026-03-25 (Session 4)
 
 ---
 
@@ -50,8 +50,8 @@
 - [x] `SESSION_PRACTICES.md` — industry standard tracking/cleanup reference
 - [x] `se_ffstyle.ipynb` — project tracking overview notebook
 - [x] `CLAUDE.md` — project context file for Claude
-- [x] GitHub Issues + Milestone setup for Sprint 1 (7 issues, 5 labels, 1 milestone) — TO BE REDONE MANUALLY (auto-created in Session 2, deleting in Session 3)
-- [ ] Delete auto-created GitHub Issues, milestone, labels from Session 2
+- [x] GitHub Issues + Milestone setup for Sprint 1 (5 labels, 1 milestone kept; auto-created issues deleted in Session 4)
+- [x] Delete auto-created GitHub Issues #1–#7 from Session 2 (done via issue #8)
 - [ ] Manually recreate GitHub Issues for Sprint 1
 - [ ] `.gitignore` — needs `venv/`, `__pycache__/`, `.env` entries
 - [ ] `requirements.txt` — empty, needs dependencies listed
@@ -164,9 +164,24 @@
 
 **Blockers:** None
 **Next session priorities:**
-1. Delete existing GitHub Issues (#1–#7), milestone, and labels
+1. ~~Delete existing GitHub Issues (#1–#7), milestone, and labels~~ — done in Session 4
 2. Manually recreate GitHub Issues for Sprint 1 using `gh` CLI
 3. Then continue with actual code: `.gitignore`, `requirements.txt`, `database.py`, `main.py`
+
+### Session 4 — 2026-03-25
+**Focus:** Cleanup — deleted auto-created GitHub Issues
+**Duration:** ~15 min
+**What was done:**
+- Deleted auto-created GitHub Issues #1–#7 from Session 2
+- Completed issue #8 ("Delete claude generated issues")
+- Labels (chore, core, auth, models, sprint-1) and milestone (Sprint 1 — People & Access) still intact
+- Learned issue branch workflow (create branch per issue, PR with `closes #N`)
+
+**Blockers:** None
+**Next priorities:**
+1. Close issue #8 on GitHub (`gh issue close 8`)
+2. Manually recreate GitHub Issues for Sprint 1 using `gh` CLI
+3. Start actual code: `.gitignore`, `requirements.txt`, `database.py`, `main.py`
 
 ---
 
