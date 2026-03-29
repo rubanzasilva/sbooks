@@ -65,6 +65,8 @@ Full data model specification is in: `../problem_statement_data_model_redesign_c
 ## Current State
 - Phase 3 (Architecture & Design) in progress
 - Scaffolding created, all code files are empty
+- Auto-created issues #1–#7 deleted; labels + milestone kept; issue #8 done
+- Next: recreate Sprint 1 issues manually, then start coding
 - See `PROGRESS.md` for detailed status and session log
 
 ## Development Plan
