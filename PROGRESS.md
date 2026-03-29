@@ -5,7 +5,7 @@
 **Tech Stack:** FastAPI + SQLModel + PostgreSQL (Neon) + React Native + FastHTML + Modal
 **Repo:** sbooks
 **Started:** 2026-03-22
-**Last Updated:** 2026-03-29 (Session 5)
+**Last Updated:** 2026-03-30 (Session 6)
 
 ---
 
@@ -53,8 +53,8 @@
 - [x] GitHub Issues + Milestone setup for Sprint 1 (5 labels, 1 milestone kept; auto-created issues deleted in Session 4)
 - [x] Delete auto-created GitHub Issues #1–#7 from Session 2 (done via issue #8)
 - [x] `.gitignore` — added `venv/`, `.env`; untracked venv from git
-- [ ] Manually recreate GitHub Issues for Sprint 1 (in progress — #10 exists, need core plumbing issue)
-- [ ] `requirements.txt` — empty, needs dependencies listed (GitHub issue #10)
+- [x] Manually recreate GitHub Issues for Sprint 1 (in progress — #10 closed, #11 open)
+- [x] `requirements.txt` — populated with all core dependencies (GitHub issue #10 CLOSED)
 - [ ] `app/database.py` — empty, needs async PostgreSQL connection (Neon)
 - [ ] `app/main.py` — empty, needs FastAPI app initialization
 - [ ] `app/models/` — empty, needs SQLModel classes for 41 tables
@@ -200,11 +200,31 @@
 
 **Blockers:** None
 **Next session priorities (pick up here):**
-1. Create GitHub issue for "Wire up core plumbing" (database.py, main.py, config.py) — label: `core`
-2. Populate `requirements.txt` (issue #10) — fastapi, sqlmodel, uvicorn, asyncpg, pydantic-settings, python-jose, passlib, etc.
-3. Wire up core plumbing — `database.py`, `main.py`, `app/core/config.py`
-4. Once Phase 3.0 is done, create Phase 3.1 issues (SQL schema, API specs, architecture diagram, offline sync)
-5. Then move to Phase 4 Sprint 1 — People & Access
+1. Issue #11 — Wire up core plumbing (`database.py`, `main.py`, `app/core/config.py`) → IN PROGRESS
+2. Populate `.env` with Neon database URL and JWT secret
+3. Once core wiring done, install Alembic and run initial migration
+4. Verify Neon connection end-to-end
+5. Then move to Phase 3.2 — SQLModel classes for all 41 tables
+
+### Session 6 — 2026-03-30
+**Focus:** Requirements.txt, virtual environment deep dive, issue tracking
+**Duration:** ~1 hour
+**What was done:**
+- Populated `requirements.txt` via `pip freeze` (issue #10 CLOSED ✅)
+- Committed and pushed `requirements.txt` and `.gitignore` to GitHub
+- Deep dive into virtual environments — how `venv` works, `PATH`, `bin/`, `lib/`, activation
+- Created issue #11 for core plumbing (database.py, main.py, config.py)
+- Updated progress tracker to reflect 3.1 Core Wiring as next step
+
+**Current GitHub Issues:**
+- Issue #10 — Populate requirements.txt → CLOSED ✅
+- Issue #11 — Wire up core plumbing → OPEN
+
+**Blockers:** None
+**Next session priorities (pick up here):**
+1. Issue #11 — Populate `.env`, wire up `config.py`, `database.py`, `main.py`
+2. Install Alembic, run initial migration
+3. Verify Neon connection end-to-end
 
 ---
 

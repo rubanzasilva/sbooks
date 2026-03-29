@@ -65,11 +65,11 @@ Full data model specification is in: `../problem_statement_data_model_redesign_c
 ## Current State
 - Phase 3 (Architecture & Design) in progress — Phase 3.0 (Project Setup) partially done
 - `.gitignore` done (`venv/`, `.env`); venv untracked from git ✅
-- `requirements.txt` still empty — GitHub issue #10 open
-- Core plumbing (`database.py`, `main.py`, `config.py`) still empty — needs GitHub issue created
+- `requirements.txt` populated via `pip freeze` — GitHub issue #10 CLOSED ✅
+- Core plumbing (`database.py`, `main.py`, `config.py`) still empty — GitHub issue #11 OPEN
 - Auto-created issues #1–#7 deleted; labels + milestone kept; issue #8 closed
 - GitHub labels (chore, core, auth, models, sprint-1) and milestone (Sprint 1 — People & Access) in place
-- **Next:** Create core plumbing issue, populate requirements.txt (#10), wire up plumbing, then Phase 3.1
+- **Next:** Issue #11 — populate `.env`, wire up `config.py`, `database.py`, `main.py`, then Alembic setup
 - See `PROGRESS.md` for detailed status and session log
 
 ## Development Plan
