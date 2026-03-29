@@ -63,10 +63,13 @@ Full data model specification is in: `../problem_statement_data_model_redesign_c
 - Use dependency injection for database sessions and auth
 
 ## Current State
-- Phase 3 (Architecture & Design) in progress
-- Scaffolding created, all code files are empty
-- Auto-created issues #1–#7 deleted; labels + milestone kept; issue #8 done
-- Next: recreate Sprint 1 issues manually, then start coding
+- Phase 3 (Architecture & Design) in progress — Phase 3.0 (Project Setup) partially done
+- `.gitignore` done (`venv/`, `.env`); venv untracked from git ✅
+- `requirements.txt` still empty — GitHub issue #10 open
+- Core plumbing (`database.py`, `main.py`, `config.py`) still empty — needs GitHub issue created
+- Auto-created issues #1–#7 deleted; labels + milestone kept; issue #8 closed
+- GitHub labels (chore, core, auth, models, sprint-1) and milestone (Sprint 1 — People & Access) in place
+- **Next:** Create core plumbing issue, populate requirements.txt (#10), wire up plumbing, then Phase 3.1
 - See `PROGRESS.md` for detailed status and session log
 
 ## Development Plan

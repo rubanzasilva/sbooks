@@ -5,7 +5,7 @@
 **Tech Stack:** FastAPI + SQLModel + PostgreSQL (Neon) + React Native + FastHTML + Modal
 **Repo:** sbooks
 **Started:** 2026-03-22
-**Last Updated:** 2026-03-25 (Session 4)
+**Last Updated:** 2026-03-29 (Session 5)
 
 ---
 
@@ -52,9 +52,9 @@
 - [x] `CLAUDE.md` — project context file for Claude
 - [x] GitHub Issues + Milestone setup for Sprint 1 (5 labels, 1 milestone kept; auto-created issues deleted in Session 4)
 - [x] Delete auto-created GitHub Issues #1–#7 from Session 2 (done via issue #8)
-- [ ] Manually recreate GitHub Issues for Sprint 1
-- [ ] `.gitignore` — needs `venv/`, `__pycache__/`, `.env` entries
-- [ ] `requirements.txt` — empty, needs dependencies listed
+- [x] `.gitignore` — added `venv/`, `.env`; untracked venv from git
+- [ ] Manually recreate GitHub Issues for Sprint 1 (in progress — #10 exists, need core plumbing issue)
+- [ ] `requirements.txt` — empty, needs dependencies listed (GitHub issue #10)
 - [ ] `app/database.py` — empty, needs async PostgreSQL connection (Neon)
 - [ ] `app/main.py` — empty, needs FastAPI app initialization
 - [ ] `app/models/` — empty, needs SQLModel classes for 41 tables
@@ -179,9 +179,32 @@
 
 **Blockers:** None
 **Next priorities:**
-1. Close issue #8 on GitHub (`gh issue close 8`)
+1. ~~Close issue #8 on GitHub~~ — done
 2. Manually recreate GitHub Issues for Sprint 1 using `gh` CLI
 3. Start actual code: `.gitignore`, `requirements.txt`, `database.py`, `main.py`
+
+### Session 5 — 2026-03-29
+**Focus:** Progress review, .gitignore cleanup, planning next steps
+**Duration:** ~30 min
+**What was done:**
+- Untracked `venv/` from git and added to `.gitignore` ✅
+- Added `.env` to `.gitignore` ✅
+- Issue #8 (delete auto-created issues) confirmed closed ✅
+- Issue #10 (populate requirements.txt) already exists on GitHub ✅
+- Reviewed remaining Phase 3.0 tasks and GitHub issue state
+- Updated all tracking files (PROJECT_PLAN.md, PROGRESS.md, CLAUDE.md)
+
+**Current GitHub Issues:**
+- Issue #8 — Delete claude generated issues → CLOSED ✅
+- Issue #10 — Populate requirements.txt → OPEN
+
+**Blockers:** None
+**Next session priorities (pick up here):**
+1. Create GitHub issue for "Wire up core plumbing" (database.py, main.py, config.py) — label: `core`
+2. Populate `requirements.txt` (issue #10) — fastapi, sqlmodel, uvicorn, asyncpg, pydantic-settings, python-jose, passlib, etc.
+3. Wire up core plumbing — `database.py`, `main.py`, `app/core/config.py`
+4. Once Phase 3.0 is done, create Phase 3.1 issues (SQL schema, API specs, architecture diagram, offline sync)
+5. Then move to Phase 4 Sprint 1 — People & Access
 
 ---
 
