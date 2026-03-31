@@ -55,11 +55,12 @@
 - [x] `.gitignore` — added `venv/`, `.env`; untracked venv from git
 - [x] Manually recreate GitHub Issues for Sprint 1 (in progress — #10 closed, #11 open)
 - [x] `requirements.txt` — populated with all core dependencies (GitHub issue #10 CLOSED)
-- [ ] `app/database.py` — empty, needs async PostgreSQL connection (Neon)
-- [ ] `app/main.py` — empty, needs FastAPI app initialization
-- [ ] `app/models/` — empty, needs SQLModel classes for 41 tables
-- [ ] `app/core/` — empty, needs config, security, dependencies
-- [ ] `app/routers/` — empty, needs API endpoint modules
+- [x] `.env` — populated with `DATABASE_URL` (Neon) and `JWT_SECRET`
+- [ ] `app/core/config.py` — load and validate env variables using `python-dotenv`
+- [ ] `app/database.py` — async PostgreSQL connection to Neon
+- [ ] `app/main.py` — FastAPI app initialization
+- [ ] Install Alembic + run initial migration
+- [ ] Verify Neon connection end-to-end
 
 ### Phase 4 - Implementation (NOT STARTED)
 

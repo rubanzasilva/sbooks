@@ -44,7 +44,48 @@ Leave a `# TODO: NEXT SESSION - ...` comment at the exact line you stopped at.
 
 ---
 
-## 3. More Structured Approaches (For When the Project Grows)
+## 3. Environment Variables & Secrets Management
+
+This is industry standard across all languages and frameworks — never hardcode secrets in your source code.
+
+### The Pattern
+```
+.env file → loaded by a library → available as Python variables → used in your app
+```
+
+### How It Works in Python
+1. Store secrets in `.env` (never commit this file):
+```
+DATABASE_URL=postgresql://user:password@host/dbname
+JWT_SECRET=your_random_secret_here
+```
+
+2. Load them in `core/config.py` using `python-dotenv`:
+```python
+from dotenv import load_dotenv
+import os
+load_dotenv()
+DATABASE_URL = os.environ.get("DATABASE_URL")
+JWT_SECRET = os.environ.get("JWT_SECRET")
+```
+
+3. Import config values wherever needed in your app.
+
+### Generating Secure Secrets
+```bash
+python -c "import secrets; print(secrets.token_hex(32))"
+```
+Use this for JWT secrets, API keys, or any random secret value.
+
+### Rules
+- Always add `.env` to `.gitignore` — never push secrets to GitHub
+- Every developer on the team creates their own `.env` locally
+- For production, set environment variables on the server (not via `.env` file)
+- Use `.env.example` (with placeholder values) to document what variables are needed
+
+---
+
+## 4. More Structured Approaches (For When the Project Grows)
 
 ### GitHub Issues as Sprint Items
 - Create one issue per sprint task

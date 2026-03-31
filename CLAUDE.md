@@ -69,7 +69,8 @@ Full data model specification is in: `../problem_statement_data_model_redesign_c
 - Core plumbing (`database.py`, `main.py`, `config.py`) still empty — GitHub issue #11 OPEN
 - Auto-created issues #1–#7 deleted; labels + milestone kept; issue #8 closed
 - GitHub labels (chore, core, auth, models, sprint-1) and milestone (Sprint 1 — People & Access) in place
-- **Next:** Issue #11 — populate `.env`, wire up `config.py`, `database.py`, `main.py`, then Alembic setup
+- `.env` populated — `DATABASE_URL` (Neon) and `JWT_SECRET` added ✅
+- **Next:** Issue #11 — wire up `core/config.py`, `database.py`, `main.py`, then Alembic setup
 - See `PROGRESS.md` for detailed status and session log
 
 ## Development Plan
