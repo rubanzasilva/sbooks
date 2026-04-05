@@ -56,6 +56,7 @@
 - [x] Manually recreate GitHub Issues for Sprint 1 (in progress — #10 closed, #11 open)
 - [x] `requirements.txt` — populated with all core dependencies (GitHub issue #10 CLOSED)
 - [x] `.env` — populated with `DATABASE_URL` (Neon) and `JWT_SECRET`
+- [x] `README.md` — populated with project overview, features, setup guides (new contributor + owner + production)
 - [ ] `app/core/config.py` — load and validate env variables using `python-dotenv`
 - [ ] `app/database.py` — async PostgreSQL connection to Neon
 - [ ] `app/main.py` — FastAPI app initialization
@@ -226,6 +227,24 @@
 1. Issue #11 — Populate `.env`, wire up `config.py`, `database.py`, `main.py`
 2. Install Alembic, run initial migration
 3. Verify Neon connection end-to-end
+
+### Session 7 — 2026-04-05
+**Focus:** README population
+**Duration:** ~30 min
+**What was done:**
+- Populated `README.md` with project overview, features list, and setup guides
+- Setup guide covers three audiences: new contributor (full walkthrough), project owner (returning sessions), and production deployment (server export, Modal, other platforms)
+- Added automatic end-of-day reconciliation to features list
+
+**Current GitHub Issues:**
+- Issue #11 — Wire up core plumbing → OPEN
+
+**Blockers:** None
+**Next session priorities (pick up here):**
+1. Issue #11 — Walk through `app/core/config.py` line by line, then write it
+2. Wire up `app/database.py` and `app/main.py`
+3. Install Alembic, run initial migration
+4. Verify Neon connection end-to-end
 
 ---
 
