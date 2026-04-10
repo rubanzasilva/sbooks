@@ -54,6 +54,12 @@ Full data model specification is in: `../problem_statement_data_model_redesign_c
 ## Working Style
 - **Ask before implementing** — don't jump to writing code or running commands. Present the approach first and let the user decide whether to execute it themselves or have Claude do it. Sometimes the user wants to learn, not just get output.
 
+## Code Quality Standard
+- **Always default to the latest, non-deprecated, production-ready API** — this is what goes in the code
+- **Listing options is fine** — when multiple approaches exist, you may explain the alternatives for context, but always clearly label the best-in-class version and use that in any code you write
+- **Never suggest a deprecated pattern without flagging it** — if existing project code uses a deprecated API, call it out immediately
+- **Check library version before suggesting patterns** — e.g., Pydantic V2 uses `model_config = SettingsConfigDict(...)` not class-based `Config`
+
 ## Coding Preferences
 - Use async/await throughout (async database sessions, async endpoints)
 - SQLModel for all ORM models (not raw SQLAlchemy)
