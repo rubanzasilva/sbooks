@@ -57,8 +57,8 @@
 - [x] `requirements.txt` — populated with all core dependencies (GitHub issue #10 CLOSED)
 - [x] `.env` — populated with `DATABASE_URL` (Neon) and `JWT_SECRET`
 - [x] `README.md` — populated with project overview, features, setup guides (new contributor + owner + production)
-- [ ] `app/core/config.py` — load and validate env variables using `python-dotenv`
-- [ ] `app/database.py` — async PostgreSQL connection to Neon
+- [x] `app/core/config.py` — load and validate env variables using pydantic-settings ✅
+- [ ] `app/database.py` — async PostgreSQL connection to Neon (draft finalized, ready to write)
 - [ ] `app/main.py` — FastAPI app initialization
 - [ ] Install Alembic + run initial migration
 - [ ] Verify Neon connection end-to-end
