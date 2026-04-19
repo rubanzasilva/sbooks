@@ -74,12 +74,12 @@ Full data model specification is in: `../problem_statement_data_model_redesign_c
 - `requirements.txt` populated via `pip freeze` — GitHub issue #10 CLOSED ✅
 - `README.md` populated — project overview, features, setup guides (new contributor + owner + production) ✅
 - `app/core/config.py` written ✅ — loads `DATABASE_URL` and `JWT_SECRET` from `.env` using pydantic-settings
-- `app/database.py` draft finalized ✅ — async engine, session factory, dependency function; ready to write
-- `app/main.py` still empty — GitHub issue #11 OPEN
+- `app/database.py` written ✅ — async engine, session factory, `get_session` dependency (GitHub issue #11 CLOSED)
+- `app/main.py` still empty — GitHub issue #12 OPEN
 - Auto-created issues #1–#7 deleted; labels + milestone kept; issue #8 closed
 - GitHub labels (chore, core, auth, models, sprint-1) and milestone (Sprint 1 — People & Access) in place
 - `.env` populated — `DATABASE_URL` (Neon) and `JWT_SECRET` added ✅
-- **Next:** Issue #11 — write `database.py`, then `main.py`, then Alembic setup
+- **Next:** Issue #12 — write `main.py`, then Alembic setup
 - See `PROGRESS.md` for detailed status and session log
 
 ## Development Plan
