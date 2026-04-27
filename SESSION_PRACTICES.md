@@ -24,6 +24,9 @@ git add -A && git commit -m "WIP: description of where I left off"
 ```
 Never leave uncommitted work overnight.
 
+### Diff Before Committing Auto-Generated Files
+Files produced by tools (dependency freezes, codegen, schema dumps) reflect your current environment — if the environment is wrong, the output is wrong. Always `git diff` the file before committing to catch silent wipes or drift. The commit message describes intent; the diff is what actually lands.
+
 ### Push to Remote
 Protects against local machine failure. Always push before ending session.
 
