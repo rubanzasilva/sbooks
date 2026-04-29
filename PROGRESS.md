@@ -5,7 +5,7 @@
 **Tech Stack:** FastAPI + SQLModel + PostgreSQL (Neon) + React Native + FastHTML + Modal
 **Repo:** sbooks
 **Started:** 2026-03-22
-**Last Updated:** 2026-04-16 (Session 8)
+**Last Updated:** 2026-04-29 (Session 9)
 
 ---
 
@@ -57,10 +57,10 @@
 - [x] `requirements.txt` — populated with all core dependencies (GitHub issue #10 CLOSED)
 - [x] `.env` — populated with `DATABASE_URL` (Neon) and `JWT_SECRET`
 - [x] `README.md` — populated with project overview, features, setup guides (new contributor + owner + production)
-- [x] `app/core/config.py` — load and validate env variables using pydantic-settings ✅
+- [x] `app/core/config.py` — load env vars via pydantic-settings + `field_validator` normalizing Neon `DATABASE_URL` for asyncpg (scheme→`postgresql+asyncpg`, `sslmode`→`ssl`, drop `channel_binding`) ✅
 - [x] `app/database.py` — async PostgreSQL connection to Neon (engine, session factory, `get_session` dependency) — GitHub issue #11 CLOSED ✅
-- [ ] `app/main.py` — FastAPI app initialization (GitHub issue #12 OPEN)
-- [ ] Install Alembic + run initial migration
+- [x] `app/main.py` — FastAPI app with `lifespan` (startup `SELECT 1` health check + `engine.dispose()` on shutdown), commit `a5db6e2` — GitHub issue #12 still OPEN until manually closed (commit-message `closes #12` only fires on merge to default)
+- [ ] Install Alembic + run initial migration (concepts walked through; ready to run `alembic init -t async alembic`)
 - [ ] Verify Neon connection end-to-end
 
 ### Phase 4 - Implementation (NOT STARTED)
@@ -271,6 +271,34 @@
 2. Install Alembic, configure for async, run initial migration
 3. Verify Neon connection end-to-end
 4. Then move to Phase 3.2 — SQLModel classes for People & Access cluster
+
+### Session 9 — 2026-04-29
+**Focus:** Wire `main.py`, normalize Neon URL for asyncpg, walk through Alembic concepts
+**What was done:**
+- Walked through `main.py` conceptually, then wrote it ✅ — `@asynccontextmanager` lifespan with startup `SELECT 1` against Neon (fail-fast health check) + `engine.dispose()` on shutdown; `app = FastAPI(lifespan=lifespan)`
+- Discovered Neon's connection string is libpq-shaped, not asyncpg-shaped. Extended `app/core/config.py` with a Pydantic `field_validator("DATABASE_URL")` that normalizes the URL at config-load time:
+  - Scheme: `postgresql` → `postgresql+asyncpg`
+  - Query rename: `sslmode` → `ssl`
+  - Drop libpq-only param: `channel_binding`
+  - Implementation uses `urllib.parse` (`urlparse`/`parse_qsl`/`urlencode`/`urlunparse`) — keeps `.env` identical to whatever Neon hands you
+- Pinned `requirements.txt` (full freeze of installed deps)
+- Added `__pycache__/` and `*.pyc` to `.gitignore`
+- Added new principle to `SESSION_PRACTICES.md`: **"Diff Before Committing Auto-Generated Files"** — diff before commit to catch silent wipes/drift
+- Walked through Alembic concepts (no command run yet): what `alembic init -t async alembic` scaffolds (`alembic.ini`, `alembic/env.py`, `script.py.mako`, `versions/`); what a *migration* is (versioned schema change with `upgrade`/`downgrade`); workflow loop; why customize `env.py` (DATABASE_URL from `.env`, `target_metadata = SQLModel.metadata`); why `-t async` template
+- Pushed commit `a5db6e2` (`Wire FastAPI to Neon: lifespan health check + asyncpg URL normalization`) on `setup_branch` — note: commit body has `closes #12`, but that only auto-closes the issue on merge to default; until merged/closed, Issue #12 remains OPEN
+- Updated `/app/data/ref/learnings.ipynb` with two new cells: "Neon → asyncpg URL Normalization (Pydantic `field_validator` Pattern)" and "Alembic & Database Migrations — Primer"
+
+**Current GitHub Issues:**
+- Issue #11 — Wire up database.py → CLOSED ✅
+- Issue #12 — Wire up main.py → still OPEN on GitHub (close manually, or wait for merge to default)
+
+**Blockers:** None
+**Next session priorities (pick up here):**
+1. Run `alembic init -t async alembic` from `/app/data/sbooks/`
+2. Customize `alembic/env.py` — pull `DATABASE_URL` from `.env`, set `target_metadata = SQLModel.metadata`
+3. Generate + apply initial migration once SQLModel classes start landing (Phase 3.2 trigger)
+4. Verify Neon connection end-to-end (boot uvicorn, hit lifespan)
+5. Then move to Phase 3.2 — SQLModel classes for People & Access cluster (Sprint 1)
 
 ---
 
