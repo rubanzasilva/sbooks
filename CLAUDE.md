@@ -22,6 +22,8 @@ sbooks/
 │   │   └── __init__.py
 │   └── routers/              # API endpoint modules
 │       └── __init__.py
+├── migrations/               # Alembic migration scaffold (env.py, script.py.mako, versions/)
+├── alembic.ini               # Alembic configuration
 ├── .env                      # Environment variables (DO NOT COMMIT)
 ├── requirements.txt          # Python dependencies
 ├── PROGRESS.md               # Project progress tracker & session log
@@ -70,7 +72,7 @@ Full data model specification is in: `../problem_statement_data_model_redesign_c
 - Use dependency injection for database sessions and auth
 
 ## Current State
-- Phase 3 (Architecture & Design) in progress — Phase 3.1 (Core Wiring) almost done; only Alembic setup + end-to-end verification remain
+- Phase 3 (Architecture & Design) in progress — Phase 3.1 (Core Wiring) almost done; Alembic install + scaffold complete; configuration + empty baseline migration remain
 - `.gitignore` done (`venv/`, `.env`, `__pycache__/`, `*.pyc`); venv untracked from git ✅
 - `requirements.txt` pinned via `pip freeze` — GitHub issue #10 CLOSED ✅
 - `README.md` populated — project overview, features, setup guides (new contributor + owner + production) ✅
@@ -81,7 +83,9 @@ Full data model specification is in: `../problem_statement_data_model_redesign_c
 - Auto-created issues #1–#7 deleted; labels + milestone kept; issue #8 closed
 - GitHub labels (chore, core, auth, models, sprint-1) and milestone (Sprint 1 — People & Access) in place
 - `.env` populated — `DATABASE_URL` (Neon) and `JWT_SECRET` added ✅
-- **Next:** Run `alembic init -t async alembic` from sbooks/, customize `alembic/env.py` (DATABASE_URL from `.env`, `target_metadata = SQLModel.metadata`), generate initial migration, verify Neon end-to-end. Then Phase 3.2 (SQLModel classes for Sprint 1 — People & Access)
+- Neon end-to-end verified ✅ (lifespan `SELECT 1` succeeded against Neon)
+- Alembic installed ✅; scaffold created via `alembic init -t async migrations` ✅ (folder is `migrations/`, not `alembic/` — paths in any docs/scripts must use `migrations/`)
+- **Next:** (1) Configure `alembic.ini` and `migrations/env.py` — pull `DATABASE_URL` from `app.core.config.settings`, set `target_metadata = SQLModel.metadata`. (2) Create + apply empty baseline migration: `alembic revision -m "initial"` then `alembic upgrade head`. Then Phase 3.2 (SQLModel classes for Sprint 1 — People & Access)
 - See `PROGRESS.md` for detailed status and session log
 
 ## Development Plan

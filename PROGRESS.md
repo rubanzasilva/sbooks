@@ -5,7 +5,7 @@
 **Tech Stack:** FastAPI + SQLModel + PostgreSQL (Neon) + React Native + FastHTML + Modal
 **Repo:** sbooks
 **Started:** 2026-03-22
-**Last Updated:** 2026-04-29 (Session 9)
+**Last Updated:** 2026-04-30 (Session 10)
 
 ---
 
@@ -60,8 +60,12 @@
 - [x] `app/core/config.py` — load env vars via pydantic-settings + `field_validator` normalizing Neon `DATABASE_URL` for asyncpg (scheme→`postgresql+asyncpg`, `sslmode`→`ssl`, drop `channel_binding`) ✅
 - [x] `app/database.py` — async PostgreSQL connection to Neon (engine, session factory, `get_session` dependency) — GitHub issue #11 CLOSED ✅
 - [x] `app/main.py` — FastAPI app with `lifespan` (startup `SELECT 1` health check + `engine.dispose()` on shutdown), commit `a5db6e2` — GitHub issue #12 still OPEN until manually closed (commit-message `closes #12` only fires on merge to default)
-- [ ] Install Alembic + run initial migration (concepts walked through; ready to run `alembic init -t async alembic`)
-- [ ] Verify Neon connection end-to-end
+- [x] Verify Neon connection end-to-end (lifespan `SELECT 1` confirmed)
+- [x] Install Alembic
+- [x] Initialize Alembic in the project — `alembic init -t async migrations` (folder: `migrations/`, scaffold created)
+- [ ] Configure Alembic to point at async Neon — edit `alembic.ini` and `migrations/env.py` to load `DATABASE_URL` from `.env`
+- [ ] Configure Alembic to find SQLModel models — set `target_metadata = SQLModel.metadata` in `migrations/env.py`
+- [ ] Generate and apply first migration (empty baseline) — `alembic revision -m "initial"` then `alembic upgrade head`
 
 ### Phase 4 - Implementation (NOT STARTED)
 
