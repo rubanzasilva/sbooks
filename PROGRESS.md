@@ -5,7 +5,7 @@
 **Tech Stack:** FastAPI + SQLModel + PostgreSQL (Neon) + React Native + FastHTML + Modal
 **Repo:** sbooks
 **Started:** 2026-03-22
-**Last Updated:** 2026-03-30 (Session 6)
+**Last Updated:** 2026-04-30 (Session 10)
 
 ---
 
@@ -53,15 +53,19 @@
 - [x] GitHub Issues + Milestone setup for Sprint 1 (5 labels, 1 milestone kept; auto-created issues deleted in Session 4)
 - [x] Delete auto-created GitHub Issues #1–#7 from Session 2 (done via issue #8)
 - [x] `.gitignore` — added `venv/`, `.env`; untracked venv from git
-- [x] Manually recreate GitHub Issues for Sprint 1 (in progress — #10 closed, #11 open)
+- [x] Manually recreate GitHub Issues for Sprint 1 (in progress — #10 and #11 closed; #12 open)
 - [x] `requirements.txt` — populated with all core dependencies (GitHub issue #10 CLOSED)
 - [x] `.env` — populated with `DATABASE_URL` (Neon) and `JWT_SECRET`
 - [x] `README.md` — populated with project overview, features, setup guides (new contributor + owner + production)
-- [ ] `app/core/config.py` — load and validate env variables using `python-dotenv`
-- [ ] `app/database.py` — async PostgreSQL connection to Neon
-- [ ] `app/main.py` — FastAPI app initialization
-- [ ] Install Alembic + run initial migration
-- [ ] Verify Neon connection end-to-end
+- [x] `app/core/config.py` — load env vars via pydantic-settings + `field_validator` normalizing Neon `DATABASE_URL` for asyncpg (scheme→`postgresql+asyncpg`, `sslmode`→`ssl`, drop `channel_binding`) ✅
+- [x] `app/database.py` — async PostgreSQL connection to Neon (engine, session factory, `get_session` dependency) — GitHub issue #11 CLOSED ✅
+- [x] `app/main.py` — FastAPI app with `lifespan` (startup `SELECT 1` health check + `engine.dispose()` on shutdown), commit `a5db6e2` — GitHub issue #12 still OPEN until manually closed (commit-message `closes #12` only fires on merge to default)
+- [x] Verify Neon connection end-to-end (lifespan `SELECT 1` confirmed)
+- [x] Install Alembic
+- [x] Initialize Alembic in the project — `alembic init -t async migrations` (folder: `migrations/`, scaffold created)
+- [ ] Configure Alembic to point at async Neon — edit `alembic.ini` and `migrations/env.py` to load `DATABASE_URL` from `.env`
+- [ ] Configure Alembic to find SQLModel models — set `target_metadata = SQLModel.metadata` in `migrations/env.py`
+- [ ] Generate and apply first migration (empty baseline) — `alembic revision -m "initial"` then `alembic upgrade head`
 
 ### Phase 4 - Implementation (NOT STARTED)
 
@@ -215,18 +219,21 @@
 - Populated `requirements.txt` via `pip freeze` (issue #10 CLOSED ✅)
 - Committed and pushed `requirements.txt` and `.gitignore` to GitHub
 - Deep dive into virtual environments — how `venv` works, `PATH`, `bin/`, `lib/`, activation
-- Created issue #11 for core plumbing (database.py, main.py, config.py)
+- Created issues for core wiring: #11 (`database.py`) and #12 (`main.py`)
 - Updated progress tracker to reflect 3.1 Core Wiring as next step
 
 **Current GitHub Issues:**
 - Issue #10 — Populate requirements.txt → CLOSED ✅
-- Issue #11 — Wire up core plumbing → OPEN
+- Issue #11 — Wire up database.py → OPEN
+- Issue #12 — Wire up main.py → OPEN
 
 **Blockers:** None
 **Next session priorities (pick up here):**
-1. Issue #11 — Populate `.env`, wire up `config.py`, `database.py`, `main.py`
-2. Install Alembic, run initial migration
-3. Verify Neon connection end-to-end
+1. Populate `.env`, wire up `config.py`
+2. Issue #11 — wire up `database.py`
+3. Issue #12 — wire up `main.py`
+4. Install Alembic, run initial migration
+5. Verify Neon connection end-to-end
 
 ### Session 7 — 2026-04-05
 **Focus:** README population
@@ -237,14 +244,65 @@
 - Added automatic end-of-day reconciliation to features list
 
 **Current GitHub Issues:**
-- Issue #11 — Wire up core plumbing → OPEN
+- Issue #11 — Wire up database.py → OPEN
+- Issue #12 — Wire up main.py → OPEN
 
 **Blockers:** None
 **Next session priorities (pick up here):**
-1. Issue #11 — Walk through `app/core/config.py` line by line, then write it
-2. Wire up `app/database.py` and `app/main.py`
-3. Install Alembic, run initial migration
-4. Verify Neon connection end-to-end
+1. Walk through `app/core/config.py` line by line, then write it
+2. Issue #11 — wire up `app/database.py`
+3. Issue #12 — wire up `app/main.py`
+4. Install Alembic, run initial migration
+5. Verify Neon connection end-to-end
+
+### Session 8 — 2026-04-16
+**Focus:** Wire up `config.py` and `database.py`
+**What was done:**
+- Walked through `app/core/config.py` conceptually, then wrote it (pydantic-settings V2: `model_config = SettingsConfigDict(...)`, loads `DATABASE_URL` and `JWT_SECRET` from `.env`) ✅
+- Walked through `app/database.py` conceptually piece by piece (engine → session factory → dependency), then wrote it ✅
+  - `create_async_engine` and `async_sessionmaker` imported from SQLAlchemy (SQLModel doesn't expose async engine machinery)
+  - `AsyncSession` imported from `sqlmodel.ext.asyncio.session` for ORM consistency
+  - `get_session()` async generator for FastAPI dependency injection
+- Closed GitHub issue #11 (Wire up database.py) ✅
+
+**Current GitHub Issues:**
+- Issue #11 — Wire up database.py → CLOSED ✅
+- Issue #12 — Wire up main.py → OPEN
+
+**Blockers:** None
+**Next session priorities (pick up here):**
+1. Issue #12 — wire up `app/main.py` (FastAPI app init, include routers, lifespan if needed)
+2. Install Alembic, configure for async, run initial migration
+3. Verify Neon connection end-to-end
+4. Then move to Phase 3.2 — SQLModel classes for People & Access cluster
+
+### Session 9 — 2026-04-29
+**Focus:** Wire `main.py`, normalize Neon URL for asyncpg, walk through Alembic concepts
+**What was done:**
+- Walked through `main.py` conceptually, then wrote it ✅ — `@asynccontextmanager` lifespan with startup `SELECT 1` against Neon (fail-fast health check) + `engine.dispose()` on shutdown; `app = FastAPI(lifespan=lifespan)`
+- Discovered Neon's connection string is libpq-shaped, not asyncpg-shaped. Extended `app/core/config.py` with a Pydantic `field_validator("DATABASE_URL")` that normalizes the URL at config-load time:
+  - Scheme: `postgresql` → `postgresql+asyncpg`
+  - Query rename: `sslmode` → `ssl`
+  - Drop libpq-only param: `channel_binding`
+  - Implementation uses `urllib.parse` (`urlparse`/`parse_qsl`/`urlencode`/`urlunparse`) — keeps `.env` identical to whatever Neon hands you
+- Pinned `requirements.txt` (full freeze of installed deps)
+- Added `__pycache__/` and `*.pyc` to `.gitignore`
+- Added new principle to `SESSION_PRACTICES.md`: **"Diff Before Committing Auto-Generated Files"** — diff before commit to catch silent wipes/drift
+- Walked through Alembic concepts (no command run yet): what `alembic init -t async alembic` scaffolds (`alembic.ini`, `alembic/env.py`, `script.py.mako`, `versions/`); what a *migration* is (versioned schema change with `upgrade`/`downgrade`); workflow loop; why customize `env.py` (DATABASE_URL from `.env`, `target_metadata = SQLModel.metadata`); why `-t async` template
+- Pushed commit `a5db6e2` (`Wire FastAPI to Neon: lifespan health check + asyncpg URL normalization`) on `setup_branch` — note: commit body has `closes #12`, but that only auto-closes the issue on merge to default; until merged/closed, Issue #12 remains OPEN
+- Updated `/app/data/ref/learnings.ipynb` with two new cells: "Neon → asyncpg URL Normalization (Pydantic `field_validator` Pattern)" and "Alembic & Database Migrations — Primer"
+
+**Current GitHub Issues:**
+- Issue #11 — Wire up database.py → CLOSED ✅
+- Issue #12 — Wire up main.py → still OPEN on GitHub (close manually, or wait for merge to default)
+
+**Blockers:** None
+**Next session priorities (pick up here):**
+1. Run `alembic init -t async alembic` from `/app/data/sbooks/`
+2. Customize `alembic/env.py` — pull `DATABASE_URL` from `.env`, set `target_metadata = SQLModel.metadata`
+3. Generate + apply initial migration once SQLModel classes start landing (Phase 3.2 trigger)
+4. Verify Neon connection end-to-end (boot uvicorn, hit lifespan)
+5. Then move to Phase 3.2 — SQLModel classes for People & Access cluster (Sprint 1)
 
 ---
 

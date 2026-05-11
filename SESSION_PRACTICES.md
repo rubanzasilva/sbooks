@@ -24,6 +24,9 @@ git add -A && git commit -m "WIP: description of where I left off"
 ```
 Never leave uncommitted work overnight.
 
+### Diff Before Committing Auto-Generated Files
+Files produced by tools (dependency freezes, codegen, schema dumps) reflect your current environment — if the environment is wrong, the output is wrong. Always `git diff` the file before committing to catch silent wipes or drift. The commit message describes intent; the diff is what actually lands.
+
 ### Push to Remote
 Protects against local machine failure. Always push before ending session.
 
@@ -46,42 +49,26 @@ Leave a `# TODO: NEXT SESSION - ...` comment at the exact line you stopped at.
 
 ## 3. Environment Variables & Secrets Management
 
-This is industry standard across all languages and frameworks — never hardcode secrets in your source code.
+Industry standard across all languages and frameworks — never hardcode secrets in source code.
 
-### The Pattern
-```
-.env file → loaded by a library → available as Python variables → used in your app
-```
+### Core Practices
+- **`.env` file locally** — each developer keeps their own, never committed
+- **`.env` in `.gitignore`** — non-negotiable
+- **`.env.example` checked in** — documents required variables with placeholder
+  values so new contributors know what to set
+- **Production uses real environment variables** — set on the server or hosting
+  platform, not a `.env` file on disk
+- **Typed, validated settings layer** — parse and validate env vars once at
+  startup, fail fast on missing or malformed values, expose them as a typed
+  config object to the rest of the app
+- **Generate secrets with a CSPRNG** — never hand-pick strings; use a
+  cryptographically secure random generator for JWT secrets, API keys, etc.
 
-### How It Works in Python
-1. Store secrets in `.env` (never commit this file):
-```
-DATABASE_URL=postgresql://user:password@host/dbname
-JWT_SECRET=your_random_secret_here
-```
-
-2. Load them in `core/config.py` using `python-dotenv`:
-```python
-from dotenv import load_dotenv
-import os
-load_dotenv()
-DATABASE_URL = os.environ.get("DATABASE_URL")
-JWT_SECRET = os.environ.get("JWT_SECRET")
-```
-
-3. Import config values wherever needed in your app.
-
-### Generating Secure Secrets
-```bash
-python -c "import secrets; print(secrets.token_hex(32))"
-```
-Use this for JWT secrets, API keys, or any random secret value.
-
-### Rules
-- Always add `.env` to `.gitignore` — never push secrets to GitHub
-- Every developer on the team creates their own `.env` locally
-- For production, set environment variables on the server (not via `.env` file)
-- Use `.env.example` (with placeholder values) to document what variables are needed
+### Why a typed settings layer
+Scattering raw env-variable lookups across the codebase offers no validation
+and silently tolerates missing values. A typed layer centralizes the config
+contract, surfaces misconfiguration at startup instead of deep in a request
+path, and documents the app's required inputs in one place.
 
 ---
 
